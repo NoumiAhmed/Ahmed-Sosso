@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#define TAILLE_BUFFER 80
+#define TAILLE_BUFFER 100
 
 ////////declaration fonctions////////////////////////
 
@@ -15,7 +15,7 @@ int fermerF(FILE* fich);
 //recuperer les lignes du fichier
 
 //traduire
-int encoderVersBinaire(FILE* FichierEntree);
+int encoderVersBinaire(FILE* FichierEntree , FILE* FichierSortie);
 
 /////////////////////////////////////////////////////
 /////////////implementation fonctions///////////////
@@ -34,13 +34,15 @@ int fermerF(FILE* fich)
   return fclose(fich);
 }
 
- int encoderVersBinaire(FILE* fichier)
+ int encoderVersBinaire(FILE* fichier , FILE* fichierSortie)
  {
   FILE *f = fichier;
+  FILE *fS= fichierSortie;
   char ligne[TAILLE_BUFFER + 1];
-  while (fgets(ligne, TAILLE_BUFFER, f))
+  while ( fgets(ligne, TAILLE_BUFFER, f) )
    {
-    printf("%s",ligne);
+    fputs("000111",  fS);
+    
    }
    return 0;
  }
@@ -72,7 +74,7 @@ if (fichierEntree == NULL)
   return 1;
   }
 int i;
-i = encoderVersBinaire(fichierEntree);
+i = encoderVersBinaire(fichierEntree , fichierSortie);
 
  if (fermerF(fichierEntree) != 0)
   {
